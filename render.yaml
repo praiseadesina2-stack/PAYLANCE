@@ -1,0 +1,34 @@
+services:
+  # The Backend API & WebSocket Server
+  - type: web
+    name: paylance-backend
+    env: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: paylance-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: "5000"
+
+  # The React Frontend
+  - type: web
+    name: paylance-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://paylance-backend.onrender.com/api
+      - key: VITE_SOCKET_URL
+        value: https://paylance-backend.onrender.com
+
+databases:
+  # The PostgreSQL Database
+  - name: paylance-db
+    databaseName: paylance
+    user: paylance
