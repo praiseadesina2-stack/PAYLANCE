@@ -694,7 +694,7 @@ app.post('/api/jobs/:id/accept-applicant', authenticateToken, async (req, res) =
 
     // Set first milestone to in_progress
     await new Promise((resolve, reject) => {
-      db.get(`SELECT id FROM milestones WHERE job_id = ? ORDER BY rowid ASC LIMIT 1`, [jobId], (err, ms) => {
+      db.get(`SELECT id FROM milestones WHERE job_id = ? ORDER BY id ASC LIMIT 1`, [jobId], (err, ms) => {
         if (err) return reject(err);
         if (ms) {
           db.run(`UPDATE milestones SET status = 'in_progress' WHERE id = ?`, [ms.id], (err2) => err2 ? reject(err2) : resolve());
