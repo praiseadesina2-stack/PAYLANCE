@@ -18,7 +18,7 @@ export default function Chat() {
         // Fetch contacts
         const fetchContacts = async () => {
             try {
-                const res = await fetch("http://localhost:5000/api/contacts", {
+                const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:5000/api"}/contacts`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {

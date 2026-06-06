@@ -358,7 +358,7 @@ export default function ContractPage() {
                 onClick={async () => {
                   try {
                     const token = localStorage.getItem('paylance_token');
-                    const res = await fetch("http://localhost:5000/api/escrow/fund", {
+                    const res = await fetch(`${API_URL}/escrow/fund`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
                       body: JSON.stringify({ job_id: job.id })
