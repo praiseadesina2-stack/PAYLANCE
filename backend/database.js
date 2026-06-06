@@ -1,4 +1,4 @@
-const sqlite3 = require('sqlite3').verbose();
+// sqlite3 is required later, only if running locally
 const path = require('path');
 
 let db;
@@ -85,6 +85,7 @@ if (process.env.DATABASE_URL) {
 } else {
   // 2. Fallback to Local SQLite if no DATABASE_URL is set
   console.log('No DATABASE_URL found. Falling back to local SQLite...');
+  const sqlite3 = require('sqlite3').verbose();
   const dbPath = path.resolve(__dirname, 'paylance.db');
   db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
